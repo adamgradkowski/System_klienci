@@ -4,17 +4,18 @@ public class TabCustomers {
 	public static void main(String[] args) {
 		final String appName= "Aplication vol1";
 		
-		int idCustomer = 1;
-		String firstName = "Adam";
-		String lastName = "Gradkowski";
-		String pesel = "94021615734";
-		String MSISDN = "798197372";
+		Customer cust = new Customer();
+		cust.idCustomer = 1;
+		cust.firstName = "Adam";
+		cust.lastName = "Gradkowski";
+		cust.pesel = "94021615734";
+		cust.MSISDN = "798197372";
 		
 		System.out.println(appName);
-		System.out.println(firstName);
-		System.out.println(lastName);
-		System.out.println(pesel);
-		System.out.println(MSISDN);
+		System.out.println(cust.firstName);
+		System.out.println(cust.lastName);
+		System.out.println(cust.pesel);
+		System.out.println(cust.MSISDN);
 
 	}
 
