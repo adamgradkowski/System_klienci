@@ -7,11 +7,6 @@ import data.TabCustomers;
 import utils.DataReader;
 
 public class TabCustControll {
-	public static final int EXIT = 0;
-	public static final int ADD_INDIVIDUAL = 1;
-	public static final int PRINT_INDIVIDUAL = 2;
-	public static final int ADD_SOHO = 3;
-	public static final int PRINT_SOHO = 4;
 
 	private DataReader dataReader;
 	private TabCustomers tabCustomers;
@@ -21,14 +16,6 @@ public class TabCustControll {
 		tabCustomers = new TabCustomers();
 	}
 
-	private void printOption() {
-		System.out.println("Wybierz opjce programu");
-		System.out.println("0 - Wyjscie z progamu");
-		System.out.println("1 - Dodanie nowego klienta individualnego");
-		System.out.println("2 - Wyswietlenie wszystkich klientow individualnych");
-		System.out.println("1 - Dodanie nowego klienta biznesowego");
-		System.out.println("2 - Wyswietlenie wszystkich klientow biznesowych");
-	}
 
 	private void addCustomerIndividual() {
 		IndividualCustomer cust = dataReader.readAndCreateIndividualCustomer();
@@ -47,11 +34,18 @@ public class TabCustControll {
 	private void printSOHO() {
 		tabCustomers.printCustomerIndividual();
 	}
+	
+	private void printOption() {
+		System.out.println("WYbierz opcjê: ");
+		for(Option o: Option.values()) {
+			System.out.println(o);
+		}
+	}
 
 	public void controlLoop() {
-		int option;
+		Option option;
 		printOption();
-		while ((option = dataReader.getInt()) != EXIT) {
+		while ((option = Option.createFromInt(dataReader.getInt())) != Option.EXIT) {
 			switch (option) {
 			case ADD_INDIVIDUAL:
 				addCustomerIndividual();
