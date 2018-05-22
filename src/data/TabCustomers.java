@@ -52,7 +52,7 @@ public class TabCustomers {
 			System.out.println("Brak klientow inywidualnych");
 		}
 		for (int i = 0; i < numberIndividual; i++) {
-			customersIndividual[i].printInfo();
+			System.out.println(customersIndividual[i]);
 		}
 	}
 	
@@ -61,7 +61,7 @@ public class TabCustomers {
 			System.out.println("Brak klientow biznesowych");
 		}
 		for (int i = 0; i < numberSOHO; i++) {
-			customersSOHO[i].printInfo();
+			System.out.println(customersSOHO[i]);
 		}
 	}
 }

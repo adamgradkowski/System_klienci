@@ -25,8 +25,32 @@ public class Customer {
 		this.setMSISDN(MSISDN);
 	}
 
-	public void printInfo() {
-		String info = getIdCustomer() + "; " + "; " + getMSISDN();
-		System.out.println(info);
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((MSISDN == null) ? 0 : MSISDN.hashCode());
+		result = prime * result + idCustomer;
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (MSISDN == null) {
+			if (other.MSISDN != null)
+				return false;
+		} else if (!MSISDN.equals(other.MSISDN))
+			return false;
+		if (idCustomer != other.idCustomer)
+			return false;
+		return true;
+	}
+
 }
