@@ -4,6 +4,7 @@ import data.Customer;
 import data.IndividualCustomer;
 import data.SOHOCustomer;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DataReader {
@@ -17,13 +18,19 @@ public class DataReader {
 		sc.close();
 	}
 
-	public int getInt() {
-		int number = sc.nextInt();
-		sc.nextLine();
+	public int getInt() throws NumberFormatException {
+		int number = 0;
+		try {
+			number = sc.nextInt();
+		} catch (InputMismatchException e) {
+			throw new NumberFormatException("Liczba wprowadzona w niepoprawnej formie");
+		} finally {
+			sc.nextLine();
+		}
 		return number;
 	}
 
-	public IndividualCustomer readAndCreateIndividualCustomer() {
+	public IndividualCustomer readAndCreateIndividualCustomer() throws InputMismatchException{
 		System.out.println("Podaj id klienta");
 		int id = sc.nextInt();
 		sc.nextLine();

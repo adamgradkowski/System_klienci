@@ -1,50 +1,56 @@
 package app;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+
 import data.Customer;
 import data.IndividualCustomer;
 import data.SOHOCustomer;
 import data.TabCustomers;
 import utils.DataReader;
+import utils.FileManager;
 
 public class TabCustControll {
 
 	private DataReader dataReader;
+	private FileManager fileManager;
 	private TabCustomers tabCustomers;
 
 	public TabCustControll() {
 		dataReader = new DataReader();
-		tabCustomers = new TabCustomers();
+		fileManager = new FileManager();
+		tabCustomers = new TabCustomers(); /* dodac block try {} */
 	}
-
 
 	private void addCustomerIndividual() {
 		IndividualCustomer cust = dataReader.readAndCreateIndividualCustomer();
-		tabCustomers.addCustomerIndividual(cust);
+		tabCustomers.addCustIndividual(cust);
 	}
 
 	private void printCustomersIndividual() {
 		tabCustomers.printCustomerIndividual();
 	}
-	
+
 	private void addSOHO() {
 		SOHOCustomer cust = dataReader.readAndCreateSOHOCustomer();
-		tabCustomers.addCustomerSOHO(cust);
+		tabCustomers.addCustSOHO(cust);
 	}
 
 	private void printSOHO() {
 		tabCustomers.printCustomerIndividual();
 	}
-	
-	private void printOption() {
+
+	private void printOptions() {
 		System.out.println("WYbierz opcjê: ");
-		for(Option o: Option.values()) {
+		for (Option o : Option.values()) {
 			System.out.println(o);
 		}
 	}
 
 	public void controlLoop() {
 		Option option;
-		printOption();
+		printOptions();
 		while ((option = Option.createFromInt(dataReader.getInt())) != Option.EXIT) {
 			switch (option) {
 			case ADD_INDIVIDUAL:
@@ -59,13 +65,46 @@ public class TabCustControll {
 			case PRINT_SOHO:
 				printSOHO();
 				break;
-			default:
-				System.out.println("Nie ma takiej opcji, wprowadŸ ponownie: ");
+                	case EXIT:
+                    		;
 			}
-			printOption();
+			printOptions();
 		}
 		// zamykamy strumieñ wejœcia
 		dataReader.close();
 	}
+	
+	private enum Option {
+		EXIT(0, "Wyjœcie z programu"), ADD_INDIVIDUAL(1, "Dodanie klienta indywidualnego"), PRINT_INDIVIDUAL(2,
+				"Wyœwietlenie klientów indywidualnych"), ADD_SOHO(3,
+						"Dodanie klienta biznesowego"), PRINT_SOHO(4, "Wyœwielenie klitnów biznesowych");
+
+		private int value;
+		private String description;
+
+		
+		
+		Option (int value, String desc) {
+			this.value = value;
+			this.description = desc;
+		}
+		
+		@Override
+		public String toString() {
+			return value + " - " + description;
+		}
+		
+		public static Option createFromInt(int option) throws NoSuchElementException{
+			Option result = null;
+			try {
+				result = Option.values()[option];
+			} catch (ArrayIndexOutOfBoundsException e) {
+				throw new NoSuchElementException("Brak elementu o wskazanych ID");
+			}
+			return result;
+		}
+	}
 
 }
+
+

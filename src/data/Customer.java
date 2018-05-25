@@ -1,5 +1,7 @@
 package data;
 
+
+
 public class Customer {
 	private int idCustomer;
 	private String MSISDN;

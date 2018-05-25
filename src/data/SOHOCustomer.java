@@ -1,6 +1,7 @@
 package data;
 
-public class SOHOCustomer extends Customer{
+public class SOHOCustomer extends Customer {
+	private static final long serialVersionUID = 2061400934707882805L;
 	private String name;
 	private String nip;
 
@@ -16,17 +17,16 @@ public class SOHOCustomer extends Customer{
 		return nip;
 	}
 
-
 	public void setNip(String nip) {
 		this.nip = nip;
 	}
-	
+
 	public SOHOCustomer(int id, String name, String nip, String MSISDN) {
 		super(id, MSISDN);
 		this.setName(name);
 		this.setNip(nip);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -60,8 +60,15 @@ public class SOHOCustomer extends Customer{
 
 	@Override
 	public String toString() {
-		return "SOHOCustomer [name=" + name + ", nip=" + nip + ", getName()=" + getName() + ", getNip()=" + getNip()
-				+ ", getIdCustomer()=" + getIdCustomer() + ", getMSISDN()=" + getMSISDN() + "]";
+		StringBuilder print = new StringBuilder(32);
+		print.append(getIdCustomer());
+		print.append("; ");
+		print.append(getName());
+		print.append("; ");
+		print.append(getNip());
+		print.append("; ");
+		print.append(getMSISDN());
+		return print.toString();
 	}
-	
+
 }

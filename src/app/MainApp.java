@@ -7,7 +7,6 @@ public class MainApp {
 		System.out.println(appName);
 		TabCustControll control = new TabCustControll();
 		control.controlLoop();
-
 	}
 
 }

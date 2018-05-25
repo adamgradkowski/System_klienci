@@ -28,7 +28,8 @@ public class IndividualCustomer extends Customer {
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
-
+	
+	
 	public IndividualCustomer(int id, String firstname, String lastname, String pesel, String MSISDN) {
 		super(id, MSISDN);
 		this.setFirstName(firstname);
@@ -76,9 +77,17 @@ public class IndividualCustomer extends Customer {
 
 	@Override
 	public String toString() {
-		return "IndividualCustomer [getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName()
-				+ ", getPesel()=" + getPesel() + ", getIdCustomer()=" + getIdCustomer() + ", getMSISDN()=" + getMSISDN()
-				+ "]";
+		StringBuilder print = new StringBuilder(32);
+		print.append(getIdCustomer());
+		print.append(";");
+		print.append(getFirstName());
+		print.append(";");
+		print.append(getLastName());
+		print.append(";");
+		print.append(getPesel());
+		print.append(";");
+		print.append(getMSISDN());
+		return print.toString();
 	}
 
 }

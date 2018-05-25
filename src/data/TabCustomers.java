@@ -1,67 +1,75 @@
 package data;
 
-public class TabCustomers {
-	public static final int maxINDIVIDUAL = 1000;
-	public static final int maxSOHO = 1000;
-	private IndividualCustomer[] customersIndividual;
-	private SOHOCustomer[] customersSOHO;
-	private int numberIndividual;
-	private int numberSOHO;
+import java.io.Serializable;
 
-	public IndividualCustomer[] getCustomersIndividual() {
-		return customersIndividual;
+public class TabCustomers implements Serializable{
+	private static final long serialVersionUID = 2995794334600947814L;
+	public static final int maxCustomers = 2000;
+	private Customer[] customers;
+	private int customersNumber;
+
+	public Customer[] getCustomers() {
+		return customers;
 	}
 
-	public void setCustomersIndividual(IndividualCustomer[] customersIndividual) {
-		this.customersIndividual = customersIndividual;
-	}
-
-	public SOHOCustomer[] getCustomersSOHO() {
-		return customersSOHO;
-	}
-
-	public void setCustomersSOHO(SOHOCustomer[] customersSOHO) {
-		this.customersSOHO = customersSOHO;
+	public int getCustomersNumber() {
+		return customersNumber;
 	}
 
 	public TabCustomers() {
-		setCustomersIndividual(new IndividualCustomer[maxINDIVIDUAL]);
-		setCustomersSOHO(new SOHOCustomer[maxSOHO]);
+		customers = new Customer[maxCustomers];
 	}
 
-	public void addCustomerIndividual(IndividualCustomer cust) {
-		if (numberIndividual < maxINDIVIDUAL) {
-			customersIndividual[numberIndividual] = cust;
-			numberIndividual++;
+	public void addCustIndividual(IndividualCustomer cust) {
+		addCustomer(cust);
+	}
+
+	public void addCustSOHO(SOHOCustomer cust) {
+		addCustomer(cust);
+	}
+
+	public void addCustomer(Customer cust) throws ArrayIndexOutOfBoundsException {
+		if (customersNumber < maxCustomers) {
+			customers[customersNumber] = cust;
+			customersNumber++;
 		} else {
-			System.out.println("Brak miejsca");
+			System.out.println("Maxymalna liczba klientów zosta³a osi¹gniêta");
 		}
 	}
 
-	public void addCustomerSOHO(SOHOCustomer cust) {
-		if (numberSOHO < maxSOHO) {
-			customersSOHO[numberSOHO] = cust;
-			numberSOHO++;
-		} else {
-			System.out.println("Brak miejsca");
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder(32);
+		for (int i = 0; i < customersNumber; i++) {
+			builder.append(customers[i]);
+			builder.append('\n');
 		}
+		return builder.toString();
 	}
 
 	public void printCustomerIndividual() {
-		if (numberIndividual == 0) {
-			System.out.println("Brak klientow inywidualnych");
+		int countIndividual = 0;
+		for (int i = 0; i < customersNumber; i++) {
+			if (customers[i] instanceof IndividualCustomer) {
+				System.out.println(customers[i]);
+				countIndividual++;
+			}
 		}
-		for (int i = 0; i < numberIndividual; i++) {
-			System.out.println(customersIndividual[i]);
+		if (countIndividual == 0) {
+			System.out.println("Brak klientów indiwidualnych w tabeli");
 		}
 	}
-	
-	public void printSOHOCustomer() {
-		if (numberSOHO == 0) {
-			System.out.println("Brak klientow biznesowych");
+
+	public void printCustomerSOHO() {
+		int countSOHO = 0;
+		for (int i = 0; i < customersNumber; i++) {
+			if (customers[i] instanceof SOHOCustomer) {
+				System.out.println(customers[i]);
+				countSOHO++;
+			}
 		}
-		for (int i = 0; i < numberSOHO; i++) {
-			System.out.println(customersSOHO[i]);
+		if (countSOHO == 0) {
+			System.out.println("Brak klientów indiwidualnych w tabeli");
 		}
 	}
 }
