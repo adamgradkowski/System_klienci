@@ -17,10 +17,18 @@ public class TabCustControll {
 	private FileManager fileManager;
 	private TabCustomers tabCustomers;
 
-	public TabCustControll() {
+	public TabCustControll(){
 		dataReader = new DataReader();
 		fileManager = new FileManager();
-		tabCustomers = new TabCustomers(); /* dodac block try {} */
+		
+		try {
+			tabCustomers = fileManager.readCustomersFromFile();
+			System.out.println("Wczytano bazê klientów");
+		} catch (Exception e) {
+			tabCustomers = new TabCustomers();
+			System.out.println("Utworzono bazê klientów bazê klientów");
+			e.printStackTrace();
+		}
 	}
 
 	private void addCustomerIndividual() {
@@ -38,7 +46,7 @@ public class TabCustControll {
 	}
 
 	private void printSOHO() {
-		tabCustomers.printCustomerIndividual();
+		tabCustomers.printCustomerSOHO();
 	}
 
 	private void printOptions() {
@@ -65,15 +73,15 @@ public class TabCustControll {
 			case PRINT_SOHO:
 				printSOHO();
 				break;
-                	case EXIT:
-                    		;
+			case EXIT:
+				;
 			}
 			printOptions();
 		}
 		// zamykamy strumieñ wejœcia
 		dataReader.close();
 	}
-	
+
 	private enum Option {
 		EXIT(0, "Wyjœcie z programu"), ADD_INDIVIDUAL(1, "Dodanie klienta indywidualnego"), PRINT_INDIVIDUAL(2,
 				"Wyœwietlenie klientów indywidualnych"), ADD_SOHO(3,
@@ -82,19 +90,17 @@ public class TabCustControll {
 		private int value;
 		private String description;
 
-		
-		
-		Option (int value, String desc) {
+		Option(int value, String desc) {
 			this.value = value;
 			this.description = desc;
 		}
-		
+
 		@Override
 		public String toString() {
 			return value + " - " + description;
 		}
-		
-		public static Option createFromInt(int option) throws NoSuchElementException{
+
+		public static Option createFromInt(int option) throws NoSuchElementException {
 			Option result = null;
 			try {
 				result = Option.values()[option];
@@ -106,5 +112,3 @@ public class TabCustControll {
 	}
 
 }
-
-

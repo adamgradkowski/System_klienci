@@ -2,11 +2,14 @@ package data;
 
 import java.io.Serializable;
 
-public class TabCustomers implements Serializable{
+import utils.FileManager;
+
+public class TabCustomers implements Serializable {
 	private static final long serialVersionUID = 2995794334600947814L;
 	public static final int maxCustomers = 2000;
 	private Customer[] customers;
 	private int customersNumber;
+	private FileManager fileManager;
 
 	public Customer[] getCustomers() {
 		return customers;
@@ -18,14 +21,27 @@ public class TabCustomers implements Serializable{
 
 	public TabCustomers() {
 		customers = new Customer[maxCustomers];
+		fileManager = new FileManager();
 	}
 
 	public void addCustIndividual(IndividualCustomer cust) {
 		addCustomer(cust);
+		try {
+			fileManager.writeCustomersToFile(cust);
+		} catch (Exception e) {
+			System.out.println("Nie wczytano klienta do pliku");
+			e.printStackTrace();
+		}
 	}
 
 	public void addCustSOHO(SOHOCustomer cust) {
 		addCustomer(cust);
+		try {
+			fileManager.writeCustomersToFile(cust);
+		} catch (Exception e) {
+			System.out.println("Nie wczytano klienta do pliku");
+			e.printStackTrace();
+		}
 	}
 
 	public void addCustomer(Customer cust) throws ArrayIndexOutOfBoundsException {
@@ -69,7 +85,7 @@ public class TabCustomers implements Serializable{
 			}
 		}
 		if (countSOHO == 0) {
-			System.out.println("Brak klientów indiwidualnych w tabeli");
+			System.out.println("Brak klientów biznesowych w tabeli");
 		}
 	}
 }
