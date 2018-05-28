@@ -1,12 +1,13 @@
 package data;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import utils.FileManager;
 
 public class TabCustomers implements Serializable {
 	private static final long serialVersionUID = 2995794334600947814L;
-	public static final int maxCustomers = 2000;
+	public static final int INITIAL_CAPACITY = 1;
 	private Customer[] customers;
 	private int customersNumber;
 	private FileManager fileManager;
@@ -20,7 +21,7 @@ public class TabCustomers implements Serializable {
 	}
 
 	public TabCustomers() {
-		customers = new Customer[maxCustomers];
+		customers = new Customer[INITIAL_CAPACITY];
 		fileManager = new FileManager();
 	}
 
@@ -45,11 +46,30 @@ public class TabCustomers implements Serializable {
 	}
 
 	public void addCustomer(Customer cust) throws ArrayIndexOutOfBoundsException {
-		if (customersNumber < maxCustomers) {
-			customers[customersNumber] = cust;
-			customersNumber++;
-		} else {
-			System.out.println("Maxymalna liczba klientów zosta³a osi¹gniêta");
+		if (customersNumber == customers.length) {
+			customers = Arrays.copyOf(customers, customers.length * 2);
+		}
+		customers[customersNumber] = cust;
+		customersNumber++;
+	}
+	
+	public void removeCustomers(Customer cust) {
+		if (cust == null)
+			return;
+		
+		final int NOT_FOUND = -1;
+		int found = NOT_FOUND;
+		int i=0;
+		while (i <customers.length && found == NOT_FOUND) {
+			if (cust.equals(customers[i])) {
+				found = i;
+			} else {
+				i++;
+			}
+		}
+		
+		if (found != NOT_FOUND) {
+			System.arraycopy(customers, found+1, customers, found, customers.length - found -1);
 		}
 	}
 
