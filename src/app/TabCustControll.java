@@ -10,6 +10,7 @@ import data.SOHOCustomer;
 import data.TabCustomers;
 import utils.DataReader;
 import utils.FileManager;
+import utils.TabUtils;
 
 public class TabCustControll {
 
@@ -37,7 +38,7 @@ public class TabCustControll {
 	}
 
 	private void printCustomersIndividual() {
-		tabCustomers.printCustomerIndividual();
+		TabUtils.printCustomerIndividual(tabCustomers);
 	}
 
 	private void addSOHO() {
@@ -46,7 +47,7 @@ public class TabCustControll {
 	}
 
 	private void printSOHO() {
-		tabCustomers.printCustomerSOHO();
+		TabUtils.printCustomerSOHO(tabCustomers);
 	}
 
 	private void printOptions() {

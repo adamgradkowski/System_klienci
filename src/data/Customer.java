@@ -1,10 +1,12 @@
 package data;
 
-
+import java.util.List;
 
 public class Customer {
 	private int idCustomer;
 	private String MSISDN;
+
+	private List<Service> services;
 
 	public int getIdCustomer() {
 		return idCustomer;
@@ -22,9 +24,17 @@ public class Customer {
 		MSISDN = mSISDN;
 	}
 
+	public List<Service> getServices() {
+		return services;
+	}
+
 	protected Customer(int idCustomer, String MSISDN) {
 		this.setIdCustomer(idCustomer);
 		this.setMSISDN(MSISDN);
+	}
+	
+	public void addService(Service serv) {
+		services.add(serv);
 	}
 
 	@Override
