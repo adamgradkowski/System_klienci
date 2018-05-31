@@ -7,7 +7,7 @@ import java.util.Map;
 
 import utils.FileManager;
 
-public class TabCustomers implements Serializable {
+public class TabCustomers{
 	private static final long serialVersionUID = 2995794334600947814L;
 	public static final int INITIAL_CAPACITY = 1;
 	

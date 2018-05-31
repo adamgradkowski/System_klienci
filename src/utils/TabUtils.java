@@ -4,8 +4,13 @@ import java.util.Collection;
 
 import data.Customer;
 import data.IndividualCustomer;
+import data.Internet;
+import data.Phone;
 import data.SOHOCustomer;
+import data.Service;
 import data.TabCustomers;
+import data.TabService;
+import data.Tv;
 
 public class TabUtils {
 
@@ -40,4 +45,53 @@ public class TabUtils {
 		}
 
 	}
+	
+	public static void printPhone(TabService serv) {
+		Collection<Service> services = serv.getServices().values();
+		int countPhone = 0;
+		for (Service s : services) {
+			if (s instanceof Phone) {
+				System.out.println(s);
+				countPhone++;
+			}
+		}
+
+		if (countPhone == 0) {
+			System.out.println("Brak klientów indywidualnych");
+		}
+
+	}
+	
+	public static void printInternet(TabService serv) {
+		Collection<Service> services = serv.getServices().values();
+		int countInternet = 0;
+		for (Service s : services) {
+			if (s instanceof Internet) {
+				System.out.println(s);
+				countInternet++;
+			}
+		}
+
+		if (countInternet == 0) {
+			System.out.println("Brak klientów indywidualnych");
+		}
+
+	}
+	
+	public static void printTv(TabService serv) {
+		Collection<Service> services = serv.getServices().values();
+		int countTv = 0;
+		for (Service s : services) {
+			if (s instanceof Tv) {
+				System.out.println(s);
+				countTv++;
+			}
+		}
+
+		if (countTv == 0) {
+			System.out.println("Brak klientów indywidualnych");
+		}
+
+	}
+	
 }

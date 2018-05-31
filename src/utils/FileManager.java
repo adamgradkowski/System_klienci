@@ -15,8 +15,13 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import data.Customer;
 import data.IndividualCustomer;
+import data.Internet;
+import data.Phone;
 import data.SOHOCustomer;
+import data.Service;
 import data.TabCustomers;
+import data.TabService;
+import data.Tv;
 
 public class FileManager {
 
@@ -65,8 +70,7 @@ public class FileManager {
 		TabCustomers tab = new TabCustomers();
 		try (FileInputStream fis = new FileInputStream(new File("Customers.xls"));
 				HSSFWorkbook wb = new HSSFWorkbook(fis);) {
-			
-			
+
 			HSSFSheet sheetIndv = wb.getSheetAt(0);
 
 			for (int i = 1; i <= sheetIndv.getLastRowNum(); i++) {
@@ -80,7 +84,7 @@ public class FileManager {
 				tab.addCustomer(cust);
 			}
 
-			HSSFSheet sheetSOHO = wb.getSheetAt(0);
+			HSSFSheet sheetSOHO = wb.getSheetAt(1);
 
 			for (int i = 1; i <= sheetSOHO.getLastRowNum(); i++) {
 				sheetSOHO.getRow(i).getCell(2).setCellType(Cell.CELL_TYPE_STRING);
@@ -97,5 +101,56 @@ public class FileManager {
 		}
 
 		return tab;
+	}
+
+	public TabService readServiceFromFile() throws Exception {
+		TabService services = new TabService();
+		try (FileInputStream fis = new FileInputStream(new File("Customers.xls"));
+				HSSFWorkbook wb = new HSSFWorkbook(fis);) {
+
+			HSSFSheet sheetPhone = wb.getSheetAt(2);
+
+			for (int i = 1; i <= sheetPhone.getLastRowNum(); i++) {
+				sheetPhone.getRow(i).getCell(3).setCellType(Cell.CELL_TYPE_STRING);
+				sheetPhone.getRow(i).getCell(4).setCellType(Cell.CELL_TYPE_STRING);
+				Service serv = new Phone((int) sheetPhone.getRow(i).getCell(0).getNumericCellValue(),
+						sheetPhone.getRow(i).getCell(1).getStringCellValue(),
+						sheetPhone.getRow(i).getCell(2).getNumericCellValue(),
+						sheetPhone.getRow(i).getCell(3).getStringCellValue(),
+						sheetPhone.getRow(i).getCell(4).getStringCellValue());
+				services.addService(serv);
+			}
+
+			HSSFSheet sheetInternet = wb.getSheetAt(3);
+
+			for (int i = 1; i <= sheetInternet.getLastRowNum(); i++) {
+				/*sheetInternet.getRow(i).getCell(2).setCellType(Cell.CELL_TYPE_STRING);*/
+				sheetInternet.getRow(i).getCell(3).setCellType(Cell.CELL_TYPE_STRING);
+				Service serv = new Internet((int) sheetInternet.getRow(i).getCell(0).getNumericCellValue(),
+						sheetInternet.getRow(i).getCell(1).getStringCellValue(),
+						sheetInternet.getRow(i).getCell(2).getNumericCellValue(),
+						sheetInternet.getRow(i).getCell(3).getStringCellValue(),
+						sheetInternet.getRow(i).getCell(4).getNumericCellValue());
+				services.addService(serv);
+			}
+
+			HSSFSheet sheetTv = wb.getSheetAt(4);
+
+			for (int i = 1; i <= sheetTv.getLastRowNum(); i++) {
+				/*sheetTv.getRow(i).getCell(2).setCellType(Cell.CELL_TYPE_STRING);*/
+				sheetTv.getRow(i).getCell(3).setCellType(Cell.CELL_TYPE_STRING);
+				Service serv = new Tv((int) sheetTv.getRow(i).getCell(0).getNumericCellValue(),
+						sheetTv.getRow(i).getCell(1).getStringCellValue(),
+						sheetTv.getRow(i).getCell(2).getNumericCellValue(),
+						sheetTv.getRow(i).getCell(3).getStringCellValue(),
+						sheetTv.getRow(i).getCell(4).getStringCellValue());
+				services.addService(serv);
+			}
+
+			fis.close();
+
+		}
+
+		return services;
 	}
 }
