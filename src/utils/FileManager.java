@@ -95,11 +95,9 @@ public class FileManager {
 						sheetSOHO.getRow(i).getCell(3).getStringCellValue());
 				tab.addCustomer(cust);
 			}
-
+			
 			fis.close();
-
 		}
-
 		return tab;
 	}
 

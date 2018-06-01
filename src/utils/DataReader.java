@@ -3,6 +3,7 @@ package utils;
 import data.Customer;
 import data.IndividualCustomer;
 import data.SOHOCustomer;
+import data.TabCustomers;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -31,9 +32,7 @@ public class DataReader {
 	}
 
 	public IndividualCustomer readAndCreateIndividualCustomer() throws InputMismatchException{
-		System.out.println("Podaj id klienta");
-		int id = sc.nextInt();
-		sc.nextLine();
+		int id = TabCustomers.getCustomersNumber() + 1;
 		System.out.println("Podaj imie klienta");
 		String name = sc.nextLine();
 		System.out.println("Podaj nazwisko klienta");
@@ -47,9 +46,7 @@ public class DataReader {
 	}
 
 	public SOHOCustomer readAndCreateSOHOCustomer() {
-		System.out.println("id: ");
-		int id = sc.nextInt();
-		sc.nextLine();
+		int id = TabCustomers.getCustomersNumber() + 1;
 		System.out.println("nazwa: ");
 		String name = sc.nextLine();
 		System.out.println("nip: ");

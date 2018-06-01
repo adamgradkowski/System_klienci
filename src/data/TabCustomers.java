@@ -9,20 +9,20 @@ import utils.FileManager;
 
 public class TabCustomers{
 	private static final long serialVersionUID = 2995794334600947814L;
-	public static final int INITIAL_CAPACITY = 1;
 	
 	private Map<String, Customer> customers;
-	/*private Customer[] customers;*/
-	private int customersNumber;
+	private static int customersNumber;
 	private FileManager fileManager;
+	
+	
+	public static int getCustomersNumber() {
+		return customersNumber;
+	}
+
 
 	public Map<String, Customer> getCustomers() {
 		return customers;
-	}
-
-	public int getCustomersNumber() {
-		return customersNumber;
-	}
+	}	
 
 	public TabCustomers() {
 		customers = new HashMap<>();
@@ -51,6 +51,7 @@ public class TabCustomers{
 
 	public void addCustomer(Customer cust){
 		customers.put(cust.getMSISDN(), cust);
+		customersNumber++;
 	}
 	
 	public void removeCustomers(Customer cust) {
